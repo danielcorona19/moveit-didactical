@@ -1,0 +1,57 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+	"build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+	},
+
+	"runArgs": [
+		"--network=host",
+		"--cap-add=SYS_PTRACE",
+		"--cap-add=SYS_NICE",
+		"--privileged",
+		"--security-opt=seccomp:unconfined",
+		"--security-opt=apparmor:unconfined",
+		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+		"--volume=/mnt/wslg:/mnt/wslg",
+		"--volume=/dev/bus/usb:/dev/bus/usb",
+		"--ipc=host",
+		"--name=oct_interface",
+		"--ulimit=rtprio=99",
+		"--ulimit=memlock=-1:-1",
+		"--user=1010:1010"
+	],
+	
+	"remoteUser": "ros",
+	"workspaceFolder": "/home/ros/ws",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/ros/ws,type=bind",
+
+	"containerEnv": {
+		"DISPLAY": "host.docker.internal:0", // For windows. VcXsrv must be running in the host.
+		//"DISPLAY": "${localEnv:DISPLAY}", // For ubuntu.
+		"WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+		"XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+		//"LIBGL_ALWAYS_SOFTWARE": "1", // Needed for software rendering of opengl
+		"ROS_MASTER_URI": "http://localhost:11311",
+      		"ROS_HOSTNAME": "localhost"
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.cmake-tools",
+				"ms-azuretools.vscode-docker",
+				"redhat.vscode-yaml",
+				"redhat.vscode-xml",
+				"ms-iot.vscode-ros",
+				"twxs.cmake",
+				"ms-vscode.cpptools-themes"
+			]
+		}
+	}
+}
