@@ -16,10 +16,11 @@
 		"--volume=/mnt/wslg:/mnt/wslg",
 		"--volume=/dev/bus/usb:/dev/bus/usb",
 		"--ipc=host",
-		"--name=oct_interface",
+		"--name=moveit",
 		"--ulimit=rtprio=99",
 		"--ulimit=memlock=-1:-1",
-		"--user=1010:1010"
+		"--user=1010:1010",
+		"--gpus=all"
 	],
 	
 	"remoteUser": "ros",
